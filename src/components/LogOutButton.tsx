@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 // import { resolve } from 'path'
 import { toast } from 'sonner'
+import Router from 'next/router'
 
 const LogOutButton = () => {
     // const{toast} = useToast()
@@ -12,18 +13,18 @@ const LogOutButton = () => {
     const handleLogOut = async() => {
         setLoading(true)
         await new Promise( (resolve) => setTimeout(resolve, 2000));
-        const errorMessage = null;
+        const errorMessage = "Error Logging Out";
         if(!errorMessage){
             toast.success("Logged Out", {
         description: "You have been logged out successfully",
         })
+        Router.push("/")
+        } else{
+            toast.error("Error Logging Out", {
+                description: errorMessage,
+            })
         }
         setLoading(false)
-        console.log("Logging out...")
-        // setLoading(true)
-        // setTimeout(() => {
-        //     setLoading(false)
-        // }, 2000)
     }
     return (
     <Button className='w-24'
