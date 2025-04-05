@@ -3,13 +3,14 @@ import Image from 'next/image'
 import { Button} from '@/components/ui/button'
 import { shadow } from '@/styles/utils'
 import DarkModeToggle from '@/components/DarkModeToggle'
-// import LogOutButton from '@/components/LogOutButton'
+import LogOutButton from '@/components/LogOutButton'
+import {getUser} from '@/auth/server'
 
-const Header = () => {
-    const user = null;
+async function Header () {
+    const user = await getUser();
 
   return (
-    <header className='relative flex h-24 w-full items-center justify-between bg-popover px-3 sm:px-8' style={{boxShadow: shadow}}>
+    <header className='bg-popover relative flex h-24 w-full items-center justify-between px-3 sm:px-8' style={{boxShadow: shadow}}>
         <Link className="flex items-end gap-2" href="/">
         <Image src="/goatius.png" alt="Logo" width={60} height={60} className='rounded-full' priority/>
         </Link>
@@ -17,7 +18,7 @@ const Header = () => {
             Personal <span>Notes</span>
         </h1>
         <div className="flex gap-4">
-{user ? ("Logout"): 
+{user ? (<LogOutButton/>): 
 (<>
 <Button asChild variant="outline">
 <Link href="/login">Login</Link>

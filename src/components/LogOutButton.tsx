@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button'
 // import { resolve } from 'path'
 import { toast } from 'sonner'
 import Router from 'next/router'
+import { logOutAction } from '@/actions/users'
 
 const LogOutButton = () => {
     // const{toast} = useToast()
@@ -13,7 +14,7 @@ const LogOutButton = () => {
     const handleLogOut = async() => {
         setLoading(true)
         await new Promise( (resolve) => setTimeout(resolve, 2000));
-        const errorMessage = "Error Logging Out";
+        const { errorMessage } = await logOutAction() 
         if(!errorMessage){
             toast.success("Logged Out", {
         description: "You have been logged out successfully",
